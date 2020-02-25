@@ -1,0 +1,30 @@
+<!doctype html>
+
+<title>Dashboard</title>
+
+<h1>Dashboard</h1>
+
+<div name='notifications'>
+    <p><a href="{{url_for('notifications')}}">Notifications</a>
+    {% if notifications %}
+        <ul>
+            {% for notification in notifications %}
+                <li>{{notification}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </p>
+</div>
+
+
+<div name='smallfeed'>
+    <p>Small Feed (test video is shown below)<br>
+    <video width='320' height= '240' controls>
+        <source src="{{ url_for('static', filename='test.mp4') }}">
+            Your browser does not support the video tag.
+    </video>
+    </p>
+</div>
+
+
+<div name='timeline'>Timeline</div>
