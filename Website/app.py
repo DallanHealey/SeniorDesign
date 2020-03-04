@@ -42,3 +42,8 @@ def testing():
     testing1 = ["hello1", "wooo1"]
 
     return render_template('testing.html', a=a, testing=testing, testing1=testing1)
+
+# Settings Page
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
