@@ -1,9 +1,16 @@
 <html>
 <title>Settings</title>
-This is the settings page
+<h1>Settings</h1>
 
-<form>
-    <input type="text" name="email">
+<form action="" method="POST">
+    <p>
+        {{form.email.label}} {{form.email(size=30, value=email)}}
+    </p>
+    <p>
+        {{form.phone.label}} {{form.phone(size=10, value=phone)}}
+    </p>
+    <p> {{form.submit()}} </p>
 </form>
+
 
 </html>

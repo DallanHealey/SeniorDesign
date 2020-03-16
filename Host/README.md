@@ -12,3 +12,6 @@ Have a mail.txt file that follows the following format:
     Pool Safety
 
 Send mail with `ssmtp <Email to deliver to> < mail.txt`
+
+
+Install smbus
