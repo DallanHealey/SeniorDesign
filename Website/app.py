@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, flash
 from forms import UserSettings
 from datetime import datetime
 import os
@@ -24,7 +24,7 @@ def hello():
 def notifications():
     notify = json.loads(json_string)
     
-    return render_template("notifcations.html", notifications=notify)
+    return render_template("notifcations.html", id=-1, notifications=notify)
 
 @app.route("/notifications/<id>")
 def specificNotification(id):
@@ -51,6 +51,7 @@ def testing():
 def settings():
     email = ""
     phone = ""
+    sendEmail = 1
 
     try:
         os.chdir("..")
@@ -58,6 +59,7 @@ def settings():
             json_info = json.load(fp)    
             email = json_info[1]['email']
             phone = json_info[1]['phone']
+            sendEmail = json_info[2]['sendEmail']
     except:
         pass
     os.chdir("Website")
@@ -69,7 +71,13 @@ def settings():
         result = [*result.values()]
         email = result[0]
         phone = result[1]
-        json_settings = ["info", {"email": email, "phone": phone}]
+        sendEmail = '1' if result[2] == 'y' else '0'
+        
+        if (email == "" and sendEmail == '1'):
+            flash("Cannot send email if there is no provided email", "error")
+            sendEmail = '0'   
+
+        json_settings = ["info", {"email": email, "phone": phone}, "settings", {"sendEmail": sendEmail}]
         os.chdir("..")
         try:
             with open('settings.json', 'w') as fp:
@@ -78,4 +86,4 @@ def settings():
             pass
         os.chdir("Website")
 
-    return render_template("settings.html", form=form, email=email, phone=phone)
+    return render_template("settings.html", form=form, email=email, phone=phone, sendEmail=sendEmail)

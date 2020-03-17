@@ -1,16 +1,27 @@
 <html>
-<title>Settings</title>
-<h1>Settings</h1>
+    <title>Settings</title>
+    <h1>Settings</h1>
 
-<form action="" method="POST">
-    <p>
-        {{form.email.label}} {{form.email(size=30, value=email)}}
-    </p>
-    <p>
-        {{form.phone.label}} {{form.phone(size=10, value=phone)}}
-    </p>
-    <p> {{form.submit()}} </p>
-</form>
+    <form action="" method="POST">
+        <p>
+            {{form.email.label}} {{form.email(size=30, value=email)}}
+        </p>
+        <p>
+            {{form.phone.label}} {{form.phone(size=10, value=phone)}}
+        </p>
+        <p>
+            {{form.sendEmail.label}} {{form.sendEmail(default='y')}} <!-- The default option does not work here. Apparently an issue on Github (https://github.com/lepture/flask-wtf/issues/362)-->
+        </p>
+        <p> {{form.submit()}} </p>
+    </form>
 
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
 </html>
