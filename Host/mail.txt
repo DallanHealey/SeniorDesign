@@ -1,8 +1,6 @@
-To: dallan.healey@live.com
-Subject: Testing
+To: drh@auburn.edu
+Subject: Pool Event
 
-Woo
-Testing 123...
+A pressure change has been detected in the pool. 
 
-Wooo,
 Pool Safety Team
