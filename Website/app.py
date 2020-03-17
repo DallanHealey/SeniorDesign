@@ -33,23 +33,17 @@ def notifications():
 # /0 returns all notifications
 @app.route("/notifications/<id>")
 def specificNotification(id):
-    if int(id) - 1 != -1:
-        return jsonify(loadNotifications()[int(id) - 1])
+    notify = loadNotifications()
+    max_id = notify[-1]["id"]
+    if int(id) - 1 != -1 and int(max_id) >= int(id):
+        return jsonify(notify[int(id) - 1])
     else:
-        return jsonify(loadNotifications())
+        return jsonify(notify)
 
 @app.route('/livefeed')
 def livefeed():
     return render_template("livefeed.html")
 
-# Changing a from 1 to 2 will output testing1 array on website
-@app.route("/testing")
-def testing():
-    a = 1
-    testing = ["hello", "wooo"]
-    testing1 = ["hello1", "wooo1"]
-
-    return render_template('testing.html', a=a, testing=testing, testing1=testing1)
 
 # Settings Page
 # Loads and modifies previous settings to match current settings. File is stored back a directory (../)
