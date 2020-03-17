@@ -107,10 +107,12 @@ def voltageTripped():
     # If Voltage tripped, send email
 
 while (True):
-    a = input("")
+    a = input("1 for Gyro, 2 for Sensor, 3 for Voltage (q to quit): ")
     if a == '1':
         gyroTripped()
-    if a == '2':
+    elif a == '2':
         sensorTripped()
+    elif a == '3':
+        voltageTripped()
     if a == 'q':
         break

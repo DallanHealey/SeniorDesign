@@ -31,6 +31,7 @@ def notifications():
 
 # This only returns JSON data for a REST endpoint
 # /0 returns all notifications
+# If index is out of bounds, returns all the notifications (this should never happen on the app)
 @app.route("/notifications/<id>")
 def specificNotification(id):
     notify = loadNotifications()
