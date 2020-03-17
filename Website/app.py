@@ -10,27 +10,33 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'l33tKey'
 
-id = 1
-string = ["notification", {"id": id, "message": "testing messages", "timestamp": "7 July 21:00:00"}]
-json_string = json.dumps(string)
+def loadNotifications():
+    os.chdir("..")
+    notifications = open("notifications.json", "r")
+    notify = json.load(notifications)
+    notifications.close()
+    os.chdir("Website")
+    return notify
+
 
 # Dashboard
 @app.route("/")
-def hello():
-    notify = ['test']
-    return render_template("index.html", notifications=notify, cameraFeed=[])
+def index():
+    return render_template("index.html", notifications=loadNotifications(), cameraFeed=[])
 
+# This returns all the notifications, formatted for human consumption
 @app.route("/notifications")
 def notifications():
-    notify = json.loads(json_string)
-    
-    return render_template("notifcations.html", id=-1, notifications=notify)
+    return render_template("notifcations.html", id=-2, notifications=loadNotifications())
 
+# This only returns JSON data for a REST endpoint
+# /0 returns all notifications
 @app.route("/notifications/<id>")
 def specificNotification(id):
-    notify = json.loads(json_string)
-
-    return render_template("notifcations.html", id=int(id), message=notify[int(id)]['message'])
+    if int(id) - 1 != -1:
+        return jsonify(loadNotifications()[int(id) - 1])
+    else:
+        return jsonify(loadNotifications())
 
 @app.route('/livefeed')
 def livefeed():

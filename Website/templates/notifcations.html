@@ -1,8 +1,17 @@
-Notifications
-
-<!--Add an if here that checks if id=-1
-    If so, show all notifications, else show a specific thing
--->
-
-<p>ID: {{id}}</p>
-<p>Message: {{message}}</p>
+{% if id == -2 %}
+    <div name='notifications'>
+        {% if notifications %}
+            <ul>
+                {% for notification in notifications %}
+                    ID: {{ notification["id"] }}
+                    <pre>   <li>Message: {{notification["message"]}}</li></pre>
+                    <pre>   <li>Timestamp: {{notification["time"]}}</li></pre>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        </p>
+    </div>
+{% else %}
+    {{notifications}}
+{% endif %}
